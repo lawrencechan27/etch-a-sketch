@@ -34,14 +34,26 @@ function paintSquare(event) {
 
 }
 
+// function to initialise grid
+function createGrid(rowSize){
+    // wipe current grid
+    grid.innerHTML = '';
+    // set square size to fit in new grid
+    square.style.width = 800 / rowSize + 'px';
+    square.style.height = 800 / rowSize + 'px';
+    // get grid size from row size
+    let gridSize = rowSize * rowSize;
+    // add squares back in to grid
+    for (i = 0; i < gridSize; i++) {
+        grid.appendChild(square.cloneNode(true));
+    }
 
-// setup initial grid of 4x4
-for (i = 0; i < 16; i++) {
-    grid.appendChild(square.cloneNode(true));
+    // run function to apply mouseovers
+    applyMouseoverListener();
 }
 
-// run function to apply mouseovers
-applyMouseoverListener();
+// initial 4x4 grid
+createGrid(4);
 
 // function to set new grid
 rowsizebtn.addEventListener("click", askRowSize);
@@ -51,17 +63,5 @@ function askRowSize() {
     while (rowSize < 2 || rowSize > 100 || isNaN(rowSize)) {
         rowSize = prompt("Enter row size (2-100)");
     }
-    // get grid size from row size
-    let gridSize = rowSize * rowSize;
-    // wipe current grid
-    grid.innerHTML = '';
-    // set square size to fit in new grid
-    square.style.width = 800 / rowSize + 'px';
-    square.style.height = 800 / rowSize + 'px';
-    // add squares back in to grid
-    for (i = 0; i < gridSize; i++) {
-        grid.appendChild(square.cloneNode(true));
-    }
-
-    applyMouseoverListener();
+    createGrid(rowSize);
 }
